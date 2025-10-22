@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All About Me: The Game - Yoga's Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        .font-game {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-text {
+            text-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 40px #00aaff, 0 0 80px #00aaff;
+        }
+        .neon-box {
+            box-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff, 0 0 15px #00aaff, inset 0 0 5px #00aaff;
+        }
+        .nav-item.active {
+            background-color: #e94560;
+            color: #ffffff;
+        }
+        .nav-item.active i {
+            color: #ffffff;
+        }
+        .progress-bar-inner {
+            background: linear-gradient(90deg, #e94560, #0f3460);
+        }
+        /* Custom scrollbar for a better look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #16213e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff6681;
+        }
+
+        .fade-in {
+            animation: fadeInAnimation 1s ease-in forwards;
+        }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typing cursor effect */
+        .typing-effect p {
+            overflow: hidden; 
+            border-right: .15em solid #e94560;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .1em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #e94560; }
+        }
+        
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <!-- Layar Mulai / Start Screen -->
+    <div id="start-screen" class="h-screen w-screen flex flex-col justify-center items-center text-center p-4 transition-opacity duration-1000">
+        <h1 class="font-game text-4xl md:text-6xl neon-text mb-4">ALL ABOUT ME</h1>
+        <h2 class="font-game text-xl md:text-3xl text-yellow-300 mb-8">YOGA's ADVENTURE</h2>
+        <div class="typing-effect w-full max-w-md">
+           <p class="text-lg text-slate-300">Selamat datang di perjalananku...</p>
+        </div>
+        <button id="start-button" class="font-game mt-12 bg-rose-500 hover:bg-rose-600 text-white py-4 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 neon-box">
+            MULAI PETUALANGAN
+        </button>
+    </div>
+
+    <!-- Kontainer Utama Game -->
+    <div id="main-container" class="h-screen w-screen p-4 md:p-6 lg:p-8 opacity-0 hidden transition-opacity duration-1000">
+        <div class="h-full w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:gap-6">
+            
+            <!-- Navigasi -->
+            <nav class="glassmorphism rounded-2xl p-2 md:p-4 flex md:flex-col justify-around md:justify-start items-center gap-4 md:w-24 shrink-0">
+                <a href="#" class="nav-item group active w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('dashboard')">
+                    <i class="ph-rocket-launch text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Dashboard</span>
+                </a>
+                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts1')">
+                    <i class="ph-person text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Profil</span>
+                </a>
+                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts2')">
+                    <i class="ph-music-notes text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Lagu</span>
+                </a>
+                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts3')">
+                    <i class="ph-book-open text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Kisah</span>
+                </a>
+                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts4')">
+                    <i class="ph-puzzle-piece text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">SHAPE</span>
+                </a>
+                 <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts5')">
+                    <i class="ph-medal text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
+                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Review</span>
+                </a>
+            </nav>
+
+            <!-- Konten -->
+            <main class="glassmorphism rounded-2xl w-full h-full p-6 md:p-8 overflow-y-auto">
+                
+                <!-- Halaman Dashboard -->
+                <div id="dashboard" class="page fade-in">
+                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">Dashboard</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Overview Petualangan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Card Profil -->
+                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
+                            <i class="ph-user-circle text-6xl text-rose-400 mb-3"></i>
+                            <h4 class="font-game text-lg text-yellow-300">Profil Diri</h4>
+                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">"Petualangan mencari versi terbaik diriku," sebuah perkenalan dalam mode game kehidupan.</p>
+                            <button onclick="showPage('uts1')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Yuk Kenalan</button>
+                        </div>
+                        <!-- Card Lagu -->
+                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
+                            <i class="ph-music-notes-simple text-6xl text-rose-400 mb-3"></i>
+                            <h4 class="font-game text-lg text-yellow-300">My Song</h4>
+                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Soundtrack perjalanan dalam lirik "Step by Step" yang penuh makna dan harapan.</p>
+                            <button onclick="showPage('uts2')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Dengarkan</button>
+                        </div>
+                        <!-- Card Kisah -->
+                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
+                            <i class="ph-book-open-text text-6xl text-rose-400 mb-3"></i>
+                            <h4 class="font-game text-lg text-yellow-300">My Story</h4>
+                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Kisah perjalanan menemukan diri di tengah keheningan dan hiruk pikuk dunia.</p>
+                            <button onclick="showPage('uts3')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Baca Kisah</button>
+                        </div>
+                        <!-- Card SHAPE -->
+                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
+                            <i class="ph-chart-bar-horizontal text-6xl text-rose-400 mb-3"></i>
+                            <h4 class="font-game text-lg text-yellow-300">My SHAPE</h4>
+                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Membedah kekuatan, nilai inti, keahlian, dan kepribadian sebagai 'character stats'.</p>
+                            <button onclick="showPage('uts4')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Lihat Analisis</button>
+                        </div>
+                        <!-- Card Review -->
+                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
+                            <i class="ph-trophy text-6xl text-rose-400 mb-3"></i>
+                            <h4 class="font-game text-lg text-yellow-300">Self Review</h4>
+                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Skor dan evaluasi diri menggunakan AI sebagai cermin refleksi untuk 'level up'.</p>
+                            <button onclick="showPage('uts5')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Lihat Review</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Halaman 1: All About Me -->
+                <div id="uts1" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">UTS-1: All About Me</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">"Petualangan Mencari Versi Terbaik Diriku"</h3>
+                    <div class="space-y-4 text-slate-300 leading-relaxed">
+                        <p>Halo! Namaku Yoga. Kalau hidup ini adalah sebuah game, mungkin aku masih level awal: student mode, limited skill, low balance, tapi unlimited curiosity. Aku tidak datang sebagai karakter paling jago atau paling populer di server kehidupan aku hanya seseorang yang ingin level up setiap hari.</p>
+                        <p>Perjalananku sejauh ini diwarnai rasa penasaran, sedikit kekacauan, dan banyak momen "loh kok gitu?". Aku bukan tipe yang langsung paham dalam sekali baca-kadang butuh tiga kali, plus YouTube, plus googling, dan kadang... tidur dulu, lalu mencoba lagi besok. Tapi di situlah serunya: aku belajar bahwa progress kecil tetaplah progress.</p>
+                        <p>Aku pernah jatuh, salah langkah, salah pilih jalan, bahkan nge-lag dalam mengambil keputusan. Tapi lama-lama aku sadar, hidup itu bukan soal selalu menang-melainkan soal respawn dan mencoba lagi dengan strategi yang lebih baik. Setiap kegagalan bukan game over, tapi next chapter.</p>
+                        <p>Sekarang, misiku sederhana: menjadi versi terbaik dari diriku, bukan meniru karakter lain. Aku ingin menjadi seseorang yang bermanfaat, punya dampak, dan bisa membuat orang lain berkata, "Wah, thanks ya, ini membantuku." Caranya? Dengan terus belajar, berani keluar dari comfort zone, dan tidak takut terlihat noob di awal. Karena semua pro juga pernah mulai dari nol.</p>
+                        <p>Kalau kamu tanya, "Yoga, kamu yakin bisa?" Jawabanku: nggak selalu. Tapi aku tetap jalan. Karena keyakinan itu bisa tumbuh dari satu hal kecil: consistency. Selangkah demi selangkah, gagal-bangkit, takut-coba, ragu-lanjut. Itu resep versi diriku saat ini.</p>
+                        <p>Jadi, selamat datang di perjalanan ini. Masih panjang, masih penuh quest yang harus kuselesaikan, tapi aku siap. Kalau dunia ini adalah permainan, maka aku memilih untuk menjadi main character dalam hidupku sendiri-bukan NPC di cerita orang lain.</p>
+                    </div>
+                </div>
+
+                <!-- Halaman 2: My Songs for You -->
+                <div id="uts2" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">UTS-2: My Songs for You</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">"Step by Step"</h3>
+                    <div class="glassmorphism p-4 sm:p-6 rounded-lg">
+                        <!-- Interactive Music Player -->
+                        <div class="flex items-center gap-4">
+                            <button id="play-pause-btn" class="text-5xl text-rose-400 hover:text-white transition-colors duration-300 focus:outline-none">
+                                <i id="play-icon" class="ph ph-play-circle"></i>
+                                <i id="pause-icon" class="ph ph-pause-circle hidden"></i>
+                            </button>
+                            <div class="w-full">
+                                <div>
+                                    <p class="font-semibold text-white">Step by Step</p>
+                                    <p class="text-sm text-slate-400">Reflective Song</p>
+                                </div>
+                                <div class="relative mt-2">
+                                    <div id="progress-container" class="w-full bg-gray-700 rounded-full h-1.5 cursor-pointer group">
+                                        <div id="progress-bar" class="bg-rose-500 h-1.5 rounded-full relative">
+                                             <div class="w-3 h-3 bg-white rounded-full absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-slate-400 flex justify-between mt-1">
+                                        <span id="current-time">0:00</span>
+                                        <span id="total-duration">0:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <audio id="audio-player" class="hidden" src="Step by Step.mp3" type="audio/mpeg" preload="metadata"></audio>
+
+                        <!-- Lyrics -->
+                        <div class="space-y-4 text-slate-300 italic border-t border-slate-700 pt-4 mt-4 max-h-60 overflow-y-auto">
+                            <p><strong>Verse 1</strong><br>Hey, it's me again, the one who always tries,<br>Who tripped on dreams, but still reached for the sky.<br>The mirror shows a face that's grown,<br>From all the storms I've faced alone.</p>
+                            <p><strong>Pre-Chorus</strong><br>Every doubt, every scar,<br>Turned into maps of who we are.</p>
+                            <p><strong>Chorus</strong><br>Step by step, I'm learning how to stay,<br>To breathe, to laugh, to find my way.<br>No need to race, I'll take my time,<br>Even small lights can still shine.</p>
+                            <p><strong>Verse 2</strong><br>Remember nights you almost gave in?<br>You kept going, you kept listening within.<br>The world was loud, but your heart was kind,<br>You carried hope that others couldn't find.</p>
+                             <p><strong>Bridge</strong><br>Dear self, don't forget to rest,<br>You're doing fine, you've done your best.<br>One day you'll look back and see,<br>You've become who you dreamed to be.</p>
+                            <p><strong>Outro</strong><br>So here's to me the brave, the kind,<br>Still growing, still chasing time.<br>Step by step, I'll find my tune,<br>Under the same forgiving moon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Halaman 3: My Stories for You -->
+                <div id="uts3" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">UTS-3: My Stories for You</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">"Finding Myself"</h3>
+                    <div class="space-y-4 text-slate-300 leading-relaxed">
+                       <p>Di sebuah kamar yang sering menjadi saksi bisu malam-malam panjang, aku pernah duduk sendirian menatap langit-langit tanpa suara. Di luar, dunia terasa bising: tuntutan, ekspektasi, perbandingan, ambisi, dan rasa takut yang datang silih berganti. Tapi di dalam diriku, yang terdengar justru hening-hening yang membuatku bertanya, "Siapa sebenarnya diriku, dan ke mana aku ingin melangkah?"</p>
+                       <p>Sejak kecil, aku selalu berusaha menjadi "versi yang diharapkan orang lain." Rajin, patuh, tidak merepotkan, tidak gagal. Di setiap tahap hidup, seolah ada panggung yang harus aku naikkan tirainya, meski aku sendiri tidak tahu peran apa yang sedang kumainkan. Aku berlari, mengejar sesuatu yang tidak pernah benar-benar kupahami. Dan seperti kebanyakan orang, aku sering mengira bahwa menemukan diri berarti menemukan jawaban. Namun aku baru sadar, ternyata menemukan diri justru tentang berani mengakui pertanyaan-pertanyaanku sendiri.</p>
+                       <p>Pada momen itu, aku mulai menyadari sesuatu yang sederhana namun menohok: Aku tidak pernah benar-benar diam untuk mendengarkan diriku sendiri. Aku lebih sibuk membuktikan diri kepada dunia, daripada bertanya apa yang sebenarnya membuat hatiku menyala.</p>
+                       <p class="p-4 border-l-4 border-rose-400 bg-black bg-opacity-20 rounded">Perlahan, aku mulai berhenti. Bukan menyerah, tapi berhenti untuk menyadari. Aku mulai menulis jurnal, menata ulang mimpi, memilah suara mana yang berasal dari diriku, dan mana yang berasal dari orang lain. Aku belajar bahwa: Tidak apa-apa gagal. Tidak apa-apa merasa lelah. Tidak apa-apa tidak sama dengan orang lain. Tidak apa-apa berjalan lebih lambat dari dunia.</p>
+                       <p>Lalu hal yang paling mengubah pandanganku adalah ketika aku menemukan lingkaran orang-orang yang tidak hanya menilai hasilku, tetapi memahami prosesku. Untuk pertama kalinya, aku merasa tidak harus memakai topeng.</p>
+                       <p>Hari ini, aku masih berjalan. Aku belum menemukan semua jawaban, dan aku rasa aku memang tidak harus terburu-buru. Karena pada akhirnya, menemukan diri bukan tentang destinasi, tetapi perjalanan. Menemukan diri adalah proses seumur hidup sebuah perjalanan pulang ke dalam diri, sedikit demi sedikit, hari demi hari.</p>
+                       <p class="font-semibold text-center text-rose-300 text-lg mt-6">"Take your time. You're becoming. You're allowed to be a work in progress."</p>
+                    </div>
+                </div>
+
+                <!-- Halaman 4: My SHAPE -->
+                <div id="uts4" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">UTS-4: My SHAPE</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Piagam Diri (Personal Charter)</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        
+                        <!-- Strengths -->
+                        <div class="glassmorphism p-6 rounded-lg">
+                            <h4 class="font-game text-lg text-yellow-300 mb-4">S - Signature Strengths</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3"><i class="ph-books text-xl text-rose-400 mt-1"></i><span><strong>Love of Learning:</strong> Dorongan kuat untuk memahami konsep baru secara mendalam.</span></li>
+                                <li class="flex items-start gap-3"><i class="ph-mountains text-xl text-rose-400 mt-1"></i><span><strong>Perseverance:</strong> Bertahan menghadapi kesulitan dan menyelesaikan apa yang dimulai.</span></li>
+                                <li class="flex items-start gap-3"><i class="ph-arrows-clockwise text-xl text-rose-400 mt-1"></i><span><strong>Self-Regulation:</strong> Mampu mengatur diri, menjaga ritme, dan mengendalikan impuls.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Heart -->
+                        <div class="glassmorphism p-6 rounded-lg">
+                            <h4 class="font-game text-lg text-yellow-300 mb-4">H - Heart (Nilai Inti)</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3"><i class="ph-trend-up text-xl text-rose-400 mt-1"></i><span><strong>Growth:</strong> Merasa hidup ketika bertumbuh dan menantang batas diri.</span></li>
+                                <li class="flex items-start gap-3"><i class="ph-atom text-xl text-rose-400 mt-1"></i><span><strong>Impact:</strong> Ingin karya membawa manfaat yang dapat dirasakan orang lain.</span></li>
+                                <li class="flex items-start gap-3"><i class="ph-shield-check text-xl text-rose-400 mt-1"></i><span><strong>Integrity:</strong> Menjunjung prinsip, kejujuran, dan komitmen.</span></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Aptitudes -->
+                        <div class="glassmorphism p-6 rounded-lg lg:col-span-2">
+                             <h4 class="font-game text-lg text-yellow-300 mb-4">A - Aptitudes & Skills</h4>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                <div>
+                                    <p class="mb-1 font-semibold">Dasar Pemrograman (Python, C, Java)</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 75%"></div></div>
+                                </div>
+                                <div>
+                                    <p class="mb-1 font-semibold">Manajemen Waktu</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 85%"></div></div>
+                                </div>
+                                 <div>
+                                    <p class="mb-1 font-semibold">Analisis & Riset</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 80%"></div></div>
+                                </div>
+                                 <div>
+                                    <p class="mb-1 font-semibold">Critical Thinking</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 90%"></div></div>
+                                </div>
+                                 <div>
+                                    <p class="mb-1 font-semibold">Logical Problem-Solving</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 88%"></div></div>
+                                </div>
+                                 <div>
+                                    <p class="mb-1 font-semibold">Kemampuan Belajar Mandiri</p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar-inner h-2.5 rounded-full" style="width: 95%"></div></div>
+                                </div>
+                             </div>
+                        </div>
+
+                        <!-- Personality -->
+                        <div class="glassmorphism p-6 rounded-lg text-center">
+                            <h4 class="font-game text-lg text-yellow-300 mb-4">P - Personality</h4>
+                            <i class="ph-brain text-6xl text-rose-400 mb-3"></i>
+                            <p class="text-xl font-bold">Introvert-Reflektif</p>
+                            <p class="text-sm text-slate-400">Terorganisir, mandiri, mendalam, dan sistematis.</p>
+                        </div>
+
+                        <!-- Experiences -->
+                        <div class="glassmorphism p-6 rounded-lg">
+                             <h4 class="font-game text-lg text-yellow-300 mb-4">E - Experiences</h4>
+                             <ul class="space-y-3 list-disc list-inside text-slate-300">
+                                <li><strong>Proyek & Organisasi:</strong> Konsistensi > intensitas sesaat.</li>
+                                <li><strong>Tantangan Akademik:</strong> Gagal adalah data, bukan identitas.</li>
+                                <li><strong>Adaptasi Lingkungan Baru:</strong> Bertumbuh butuh ketidaknyamanan.</li>
+                             </ul>
+                        </div>
+
+                         <!-- Misi Pribadi -->
+                        <div class="glassmorphism p-6 rounded-lg lg:col-span-2">
+                             <h4 class="font-game text-lg text-yellow-300 mb-4">Pernyataan Misi Pribadi</h4>
+                             <p class="italic text-slate-300">"Saya adalah seorang pembelajar reflektif yang menemukan makna melalui pertumbuhan diri, kebergunaan bagi sesama, dan kehidupan yang dijalani dengan integritas. Saya berkomitmen untuk terus belajar, terus mencoba, terus berproses, dan terus memberi dampak melalui karya saya."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Halaman 5: My Personal Review -->
+                <div id="uts5" class="page hidden">
+                     <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">UTS-5: My Personal Review</h2>
+                     <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Hasil Self-Assessment UTS</h3>
+                     
+                     <div class="space-y-6 text-slate-300 leading-relaxed">
+                        <div class="glassmorphism p-4 rounded-lg">
+                            <p>Berikut cara saya melakukan review: menggunakan <strong>ChatGPT</strong> untuk merefleksikan tiap tugas. Saya mengattach file prompt ChatGPT, disertai perintah:</p>
+                            <p class="mt-2 p-3 bg-black bg-opacity-25 border-l-4 border-yellow-300 rounded"><em>"self-assess UTS-1 sampai UTS-5 berdasarkan isi situs yang saya sediakan (portofolio pribadi)."</em></p>
+                            <p class="mt-2">ChatGPT melakukan self-assessment UTS-1 s.d. UTS-5 langsung dari laman yang saya berikan dan menilai memakai rubrik tugas UTS (skala 1–5 per kriteria).</p>
+                             <a href="https://drive.google.com/uc?export=download&id=1qFiDCnwIXMjG_1ax2HFmLCQPR3VjTDU0" class="inline-block mt-4 font-semibold text-rose-400 hover:text-rose-300 transition-colors duration-300">
+                                <i class="ph-download-simple align-middle mr-1"></i> Download CSV ringkasan (Google Drive)
+                             </a>
+                        </div>
+
+                        <div>
+                            <h4 class="font-game text-lg text-yellow-300 mb-3">Identifikasi</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Nama & NIM penulis:</strong> Yoga Putra Pratama - 18222073</li>
+                                <li><strong>Penilai:</strong> Self-assessment (Yoga Putra Pratama)</li>
+                                <li><strong>Catatan cakupan:</strong> Halaman beranda memuat "UTS-1 All About Me"; navigasi ke "My Songs for You", "My Stories for You", "My SHAPE", dan "My Personal Reviews" tersedia.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-game text-lg text-yellow-300 mb-3">Tinjauan Umum</h4>
+                             <div class="space-y-2">
+                                <p><strong class="text-rose-300">UTS-1 (All About Me):</strong> Berisi narasi reflektif dan otentik tentang diri, dengan keseimbangan antara logika dan empati.</p>
+                                <p><strong class="text-rose-300">UTS-2 (My Songs for You):</strong> Menampilkan lagu "Better Steps" dengan lirik serta makna reflektifnya, menunjukkan penggunaan AI yang bijak.</p>
+                                <p><strong class="text-rose-300">UTS-3 (My Stories for You):</strong> Berisi tiga kisah inspiratif dengan nilai komunikasi yang mendalam.</p>
+                                <p><strong class="text-rose-300">UTS-4 (My SHAPE):</strong> Menampilkan hasil refleksi dari Piagam Diri dan Identitas Naratif.</p>
+                                <p><strong class="text-rose-300">UTS-5 (My Personal Reviews):</strong> Berisi metode dan dokumentasi proses self-assessment menggunakan ChatGPT.</p>
+                             </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-game text-lg text-yellow-300 mb-3">Tinjauan Spesifik + Skor (1-5)</h4>
+                            <div class="space-y-4">
+                                <!-- UTS 1 Review -->
+                                <details class="glassmorphism rounded-lg p-4 cursor-pointer">
+                                    <summary class="font-semibold text-white">UTS-1 — All About Me <span class="text-yellow-300 float-right">Skor: 100%</span></summary>
+                                    <div class="mt-3 pt-3 border-t border-slate-700">
+                                        <p><strong>Alasan:</strong> Reflektif, otentik, dan menarik secara emosional. Bahasa naratif alami dengan insight kuat dan humor lembut.</p>
+                                        <p class="mt-2"><strong>Saran:</strong> Tambahkan kutipan kecil atau motto pribadi untuk memperkuat penutup.</p>
+                                    </div>
+                                </details>
+                                <!-- UTS 2 Review -->
+                                <details class="glassmorphism rounded-lg p-4 cursor-pointer">
+                                    <summary class="font-semibold text-white">UTS-2 — My Songs for You <span class="text-yellow-300 float-right">Skor: 100%</span></summary>
+                                     <div class="mt-3 pt-3 border-t border-slate-700">
+                                        <p><strong>Alasan:</strong> Lagu "Better Steps" menggabungkan pesan personal dan refleksi akademik dengan sangat harmonis.</p>
+                                        <p class="mt-2"><strong>Saran:</strong> Sertakan 1–2 kalimat tentang siapa penerima pesan lagu untuk memperjelas relasi interpersonalnya.</p>
+                                    </div>
+                                </details>
+                                 <!-- UTS 3 Review -->
+                                <details class="glassmorphism rounded-lg p-4 cursor-pointer">
+                                    <summary class="font-semibold text-white">UTS-3 — My Stories for You <span class="text-yellow-300 float-right">Skor: 100%</span></summary>
+                                     <div class="mt-3 pt-3 border-t border-slate-700">
+                                        <p><strong>Alasan:</strong> Cerita kuat, imersif, dan reflektif dengan nilai-nilai interpersonal yang menyentuh.</p>
+                                        <p class="mt-2"><strong>Saran:</strong> Tambahkan epilog reflektif singkat yang mengikat tiga cerita sebagai satu kesatuan nilai.</p>
+                                    </div>
+                                </details>
+                                 <!-- UTS 4 Review -->
+                                <details class="glassmorphism rounded-lg p-4 cursor-pointer">
+                                    <summary class="font-semibold text-white">UTS-4 — My SHAPE <span class="text-yellow-300 float-right">Skor: 100%</span></summary>
+                                     <div class="mt-3 pt-3 border-t border-slate-700">
+                                        <p><strong>Alasan:</strong> Isi lengkap dan menggambarkan pemahaman diri yang kuat berdasarkan refleksi SHAPE.</p>
+                                        <p class="mt-2"><strong>Saran:</strong> Tambahkan visualisasi sederhana (diagram atau mindmap SHAPE) untuk memperkuat presentasi.</p>
+                                    </div>
+                                </details>
+                                 <!-- UTS 5 Review -->
+                                <details class="glassmorphism rounded-lg p-4 cursor-pointer">
+                                    <summary class="font-semibold text-white">UTS-5 — My Personal Reviews <span class="text-yellow-300 float-right">Skor: 100%</span></summary>
+                                     <div class="mt-3 pt-3 border-t border-slate-700">
+                                        <p><strong>Alasan:</strong> Menunjukkan pemahaman utuh terhadap rubrik dan proses refleksi diri. Pendekatan sistematis.</p>
+                                        <p class="mt-2"><strong>Saran:</strong> Tambahkan contoh personal review 1 karya untuk mendemonstrasikan penerapan analisis.</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-game text-lg text-yellow-300 mb-3">Rekap Skor</h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-center">
+                                <div class="glassmorphism p-3 rounded-lg">
+                                    <p class="font-semibold">UTS-1</p><p class="text-2xl font-bold text-green-400">100%</p>
+                                </div>
+                                <div class="glassmorphism p-3 rounded-lg">
+                                    <p class="font-semibold">UTS-2</p><p class="text-2xl font-bold text-green-400">100%</p>
+                                </div>
+                                <div class="glassmorphism p-3 rounded-lg">
+                                    <p class="font-semibold">UTS-3</p><p class="text-2xl font-bold text-green-400">100%</p>
+                                </div>
+                                <div class="glassmorphism p-3 rounded-lg">
+                                    <p class="font-semibold">UTS-4</p><p class="text-2xl font-bold text-green-400">100%</p>
+                                </div>
+                                <div class="glassmorphism p-3 rounded-lg col-span-2 sm:col-span-1">
+                                    <p class="font-semibold">UTS-5</p><p class="text-2xl font-bold text-green-400">100%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                     </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const startScreen = document.getElementById('start-screen');
+        const mainContainer = document.getElementById('main-container');
+        const startButton = document.getElementById('start-button');
+        const pages = document.querySelectorAll('.page');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        // Interactive Music Player Logic
+        const audioPlayer = document.getElementById('audio-player');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalDurationEl = document.getElementById('total-duration');
+
+        // Fungsi untuk memulai game
+        startButton.addEventListener('click', () => {
+            startScreen.style.opacity = '0';
+            setTimeout(() => {
+                startScreen.classList.add('hidden');
+                mainContainer.classList.remove('hidden');
+                setTimeout(() => {
+                    mainContainer.style.opacity = '1';
+                }, 50); // Small delay to ensure transition triggers
+            }, 1000); // Match transition duration
+        });
+
+        // Fungsi untuk menampilkan halaman
+        function showPage(pageId) {
+            // Hentikan audio jika pindah halaman
+            if (pageId !== 'uts2' && audioPlayer && !audioPlayer.paused) {
+                audioPlayer.pause();
+                pauseIcon.classList.add('hidden');
+                playIcon.classList.remove('hidden');
+            }
+
+            // Sembunyikan semua halaman
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('fade-in');
+            });
+
+            // Tampilkan halaman yang dipilih
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+                // Trigger reflow to restart animation
+                void activePage.offsetWidth; 
+                activePage.classList.add('fade-in');
+            }
+            
+            // Atur status aktif pada navigasi
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeNavItem = document.querySelector(`.nav-item[onclick="showPage('${pageId}')"]`);
+            if(activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
+
+        // Helper function to format time in MM:SS
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Music Player Event Listeners
+        if(audioPlayer) {
+            // Play/Pause functionality
+            playPauseBtn.addEventListener('click', () => {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                } else {
+                    audioPlayer.pause();
+                    pauseIcon.classList.add('hidden');
+                    playIcon.classList.remove('hidden');
+                }
+            });
+
+            // Update progress bar and time
+            audioPlayer.addEventListener('timeupdate', () => {
+                const { currentTime, duration } = audioPlayer;
+                if(duration) {
+                    const progressPercent = (currentTime / duration) * 100;
+                    progressBar.style.width = `${progressPercent}%`;
+                    currentTimeEl.textContent = formatTime(currentTime);
+                }
+            });
+
+            // Set total duration when metadata loads
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                totalDurationEl.textContent = formatTime(audioPlayer.duration);
+            });
+
+            // Seek functionality
+            progressContainer.addEventListener('click', (e) => {
+                const width = progressContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audioPlayer.duration;
+                if(duration) {
+                    audioPlayer.currentTime = (clickX / width) * duration;
+                }
+            });
+
+            // Reset player when song ends
+            audioPlayer.addEventListener('ended', () => {
+                pauseIcon.classList.add('hidden');
+                playIcon.classList.remove('hidden');
+                progressBar.style.width = '0%';
+                audioPlayer.currentTime = 0;
+            });
+        }
+    </script>
+
+</body>
+</html>
