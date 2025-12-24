@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
+<link rel="icon" type="image/png" sizes="32x32" href="logo_portofolio.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All About Me: The Game - Yoga's Adventure</title>
+    <title>Yoga's Adventure - All About Me</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,9 +31,13 @@
         .neon-box {
             box-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff, 0 0 15px #00aaff, inset 0 0 5px #00aaff;
         }
+        .neon-text-rose {
+            text-shadow: 0 0 5px #fb7185, 0 0 10px #fb7185;
+        }
         .nav-item.active {
-            background-color: #e94560;
+            background-color: #22c55e;
             color: #ffffff;
+            box-shadow: 0 0 15px #22c55e;
         }
         .nav-item.active i {
             color: #ffffff;
@@ -40,15 +45,16 @@
         .progress-bar-inner {
             background: linear-gradient(90deg, #e94560, #0f3460);
         }
-        /* Custom scrollbar for a better look */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #16213e;
         }
         ::-webkit-scrollbar-thumb {
-            background: #e94560;
+            background: #8c8888;
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -56,10 +62,10 @@
         }
 
         .fade-in {
-            animation: fadeInAnimation 1s ease-in forwards;
+            animation: fadeInAnimation 0.5s ease-in forwards;
         }
         @keyframes fadeInAnimation {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -82,13 +88,70 @@
             from, to { border-color: transparent }
             50% { border-color: #e94560; }
         }
-        
+
+        /* Hide scrollbar for nav but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* ===== NAV CHAPTER SEPARATORS ===== */
+        .nav-separator {
+            width: 100%;
+            height: 1px;
+            margin: 6px 0;
+            opacity: 0.6;
+        }
+
+        .separator-home {
+            background: linear-gradient(90deg, #22c55e, transparent);
+        }
+
+        .separator-ch1 {
+            background: linear-gradient(90deg, #fb7185, transparent);
+        }
+
+        .separator-ch2 {
+            background: linear-gradient(90deg, #60a5fa, transparent);
+        }
+
+        /* ===== ACTIVE STATE PER CHAPTER ===== */
+
+        /* HOME */
+        .nav-item.active-home {
+            background-color: #22c55e;
+            box-shadow: 0 0 15px #22c55e;
+        }
+        .nav-item.active-home i {
+            color: white;
+        }
+
+        /* CHAPTER 1 (UTS) */
+        .nav-item.active-ch1 {
+            background-color: #fb7185;
+            box-shadow: 0 0 15px #fb7185;
+        }
+        .nav-item.active-ch1 i {
+            color: white;
+        }
+
+        /* CHAPTER 2 (UAS) */
+        .nav-item.active-ch2 {
+            background-color: #60a5fa;
+            box-shadow: 0 0 15px #60a5fa;
+        }
+        .nav-item.active-ch2 i {
+            color: white;
+        }
     </style>
 </head>
 <body class="overflow-hidden">
 
     <!-- Layar Mulai / Start Screen -->
-    <div id="start-screen" class="h-screen w-screen flex flex-col justify-center items-center text-center p-4 transition-opacity duration-1000">
+    <div id="start-screen" class="h-screen w-screen flex flex-col justify-center items-center text-center p-4 transition-opacity duration-1000 z-50 absolute bg-[#1a1a2e]">
         <h1 class="font-game text-4xl md:text-6xl neon-text mb-4">ALL ABOUT ME</h1>
         <h2 class="font-game text-xl md:text-3xl text-yellow-300 mb-8">YOGA's ADVENTURE</h2>
         <div class="typing-effect w-full max-w-md">
@@ -100,82 +163,156 @@
     </div>
 
     <!-- Kontainer Utama Game -->
-    <div id="main-container" class="h-screen w-screen p-4 md:p-6 lg:p-8 opacity-0 hidden transition-opacity duration-1000">
+    <div id="main-container" class="h-screen w-screen p-2 md:p-6 lg:p-8 opacity-0 hidden transition-opacity duration-1000">
         <div class="h-full w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:gap-6">
             
             <!-- Navigasi -->
-            <nav class="glassmorphism rounded-2xl p-2 md:p-4 flex md:flex-col justify-around md:justify-start items-center gap-4 md:w-24 shrink-0">
-                <a href="#" class="nav-item group active w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('dashboard')">
-                    <i class="ph-rocket-launch text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Dashboard</span>
+            <nav class="glassmorphism rounded-2xl p-2 md:p-4 flex md:flex-col overflow-x-auto md:overflow-y-auto md:overflow-x-hidden justify-start items-center gap-3 md:w-24 shrink-0 no-scrollbar order-2 md:order-1">
+                
+                <!-- Home -->
+                <a href="#" class="nav-item group active w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-green-500/50 transition-all duration-300" onclick="showPage('dashboard')" title="Dashboard">
+                    <i class="ph ph-house text-2xl md:text-3xl text-green-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Home</span>
                 </a>
-                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts1')">
-                    <i class="ph-person text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Profil</span>
+
+                <div class="w-[1px] h-8 md:w-full md:h-[1px] bg-slate-600/50 mx-1 md:mx-0 md:my-2 shrink-0"></div>
+
+                <!-- UTS Section -->
+                <span class="text-[0.5rem] text-slate-500 font-bold hidden md:block w-full text-center mb-1">UTS</span>
+
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-rose-500/50 transition-all duration-300" onclick="showPage('uts1')" title="Profil">
+                    <i class="ph ph-user text-2xl md:text-3xl text-rose-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Profil</span>
                 </a>
-                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts2')">
-                    <i class="ph-music-notes text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Lagu</span>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-rose-500/50 transition-all duration-300" onclick="showPage('uts2')" title="Lagu">
+                    <i class="ph ph-headphones text-2xl md:text-3xl text-rose-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Lagu</span>
                 </a>
-                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts3')">
-                    <i class="ph-book-open text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Kisah</span>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-rose-500/50 transition-all duration-300" onclick="showPage('uts3')" title="Kisah">
+                    <i class="ph ph-book-open-text text-2xl md:text-3xl text-rose-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Kisah</span>
                 </a>
-                <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts4')">
-                    <i class="ph-puzzle-piece text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">SHAPE</span>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-rose-500/50 transition-all duration-300" onclick="showPage('uts4')" title="SHAPE">
+                    <i class="ph ph-puzzle-piece text-2xl md:text-3xl text-rose-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">SHAPE</span>
                 </a>
-                 <a href="#" class="nav-item group w-16 h-16 md:w-full aspect-square flex flex-col justify-center items-center rounded-lg hover:bg-rose-500 transition-colors duration-300" onclick="showPage('uts5')">
-                    <i class="ph-medal text-3xl text-rose-400 group-hover:text-white transition-colors duration-300"></i>
-                    <span class="text-xs mt-1 text-white group-hover:text-white transition-colors duration-300">Review</span>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-rose-500/50 transition-all duration-300" onclick="showPage('uts5')" title="Review">
+                    <i class="ph ph-clipboard-text text-2xl md:text-3xl text-rose-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Review</span>
                 </a>
+
+                <div class="w-[1px] h-8 md:w-full md:h-[1px] bg-slate-600/50 mx-1 md:mx-0 md:my-2 shrink-0"></div>
+
+                <!-- UAS Section -->
+                <span class="text-[0.5rem] text-slate-500 font-bold hidden md:block w-full text-center mb-1">UAS</span>
+
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-blue-500/50 transition-all duration-300" onclick="showPage('uas1')" title="Konsep">
+                    <i class="ph ph-lightbulb text-2xl md:text-3xl text-blue-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Konsep</span>
+                </a>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-blue-500/50 transition-all duration-300" onclick="showPage('uas2')" title="Opini">
+                    <i class="ph ph-chat-teardrop-text text-2xl md:text-3xl text-blue-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Opini</span>
+                </a>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-blue-500/50 transition-all duration-300" onclick="showPage('uas3')" title="Knowledge">
+                    <i class="ph ph-brain text-2xl md:text-3xl text-blue-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Ilmu</span>
+                </a>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-blue-500/50 transition-all duration-300" onclick="showPage('uas4')" title="Inovasi">
+                    <i class="ph ph-sparkle text-2xl md:text-3xl text-blue-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Inovasi</span>
+                </a>
+                <a href="#" class="nav-item group w-14 h-14 md:w-16 md:h-16 shrink-0 flex flex-col justify-center items-center rounded-lg hover:bg-blue-500/50 transition-all duration-300" onclick="showPage('uas5')" title="Final Review">
+                    <i class="ph ph-certificate text-2xl md:text-3xl text-blue-400 group-hover:text-white transition-colors"></i>
+                    <span class="text-[0.6rem] mt-1 text-slate-300 group-hover:text-white">Final Rev</span>
+                </a>
+
             </nav>
 
             <!-- Konten -->
-            <main class="glassmorphism rounded-2xl w-full h-full p-6 md:p-8 overflow-y-auto">
+            <main class="glassmorphism rounded-2xl w-full h-full p-6 md:p-8 overflow-y-auto order-1 md:order-2 relative">
                 
                 <!-- Halaman Dashboard -->
                 <div id="dashboard" class="page fade-in">
-                    <h2 class="font-game text-2xl md:text-3xl text-rose-400 mb-2">Dashboard</h2>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Overview Petualangan</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Card Profil -->
-                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
-                            <i class="ph-user-circle text-6xl text-rose-400 mb-3"></i>
-                            <h4 class="font-game text-lg text-yellow-300">Profil Diri</h4>
-                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">"Petualangan mencari versi terbaik diriku," sebuah perkenalan dalam mode game kehidupan.</p>
-                            <button onclick="showPage('uts1')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Yuk Kenalan</button>
+                    <h2 class="font-game text-2xl md:text-3xl text-green-400 mb-2">Dashboard Overview</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Pilih Misi Petualangan</h3>
+                    
+                    <!-- Chapter 1: UTS -->
+                    <div class="mb-8">
+                        <h4 class="font-game text-md text-slate-400 mb-4 border-b border-slate-700 pb-2">CHAPTER 1: SELF DISCOVERY (UTS)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Card Profil -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uts1')">
+                                <i class="ph ph-user-circle text-5xl text-rose-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Profil Diri</h4>
+                                <p class="text-xs text-slate-400 mt-2">Mencari versi terbaik diriku dalam mode game kehidupan.</p>
+                            </div>
+                            <!-- Card Lagu -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uts2')">
+                                <i class="ph ph-headphones text-5xl text-rose-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">My Song</h4>
+                                <p class="text-xs text-slate-400 mt-2">Soundtrack "Step by Step" yang penuh makna.</p>
+                            </div>
+                            <!-- Card Kisah -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uts3')">
+                                <i class="ph ph-book-open-text text-5xl text-rose-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">My Story</h4>
+                                <p class="text-xs text-slate-400 mt-2">Kisah menemukan diri di tengah hiruk pikuk.</p>
+                            </div>
+                            <!-- Card SHAPE -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uts4')">
+                                <i class="ph ph-puzzle-piece text-5xl text-rose-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">My SHAPE</h4>
+                                <p class="text-xs text-slate-400 mt-2">Analisis kekuatan, nilai, dan kepribadian.</p>
+                            </div>
+                            <!-- Card Review -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uts5')">
+                                <i class="ph ph-clipboard-text text-5xl text-rose-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Self Review</h4>
+                                <p class="text-xs text-slate-400 mt-2">Evaluasi diri menggunakan cermin AI.</p>
+                            </div>
                         </div>
-                        <!-- Card Lagu -->
-                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
-                            <i class="ph-music-notes-simple text-6xl text-rose-400 mb-3"></i>
-                            <h4 class="font-game text-lg text-yellow-300">My Song</h4>
-                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Soundtrack perjalanan dalam lirik "Step by Step" yang penuh makna dan harapan.</p>
-                            <button onclick="showPage('uts2')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Dengarkan</button>
-                        </div>
-                        <!-- Card Kisah -->
-                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
-                            <i class="ph-book-open-text text-6xl text-rose-400 mb-3"></i>
-                            <h4 class="font-game text-lg text-yellow-300">My Story</h4>
-                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Kisah perjalanan menemukan diri di tengah keheningan dan hiruk pikuk dunia.</p>
-                            <button onclick="showPage('uts3')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Baca Kisah</button>
-                        </div>
-                        <!-- Card SHAPE -->
-                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
-                            <i class="ph-chart-bar-horizontal text-6xl text-rose-400 mb-3"></i>
-                            <h4 class="font-game text-lg text-yellow-300">My SHAPE</h4>
-                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Membedah kekuatan, nilai inti, keahlian, dan kepribadian sebagai 'character stats'.</p>
-                            <button onclick="showPage('uts4')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Lihat Analisis</button>
-                        </div>
-                        <!-- Card Review -->
-                        <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-rose-400 border border-transparent transition-colors duration-300">
-                            <i class="ph-trophy text-6xl text-rose-400 mb-3"></i>
-                            <h4 class="font-game text-lg text-yellow-300">Self Review</h4>
-                            <p class="text-sm text-slate-300 mt-2 mb-4 flex-grow">Skor dan evaluasi diri menggunakan AI sebagai cermin refleksi untuk 'level up'.</p>
-                            <button onclick="showPage('uts5')" class="font-game text-xs bg-slate-700 hover:bg-rose-500 text-white py-2 px-4 rounded-md transition-colors duration-300">Lihat Review</button>
+                    </div>
+
+                    <!-- Chapter 2: UAS -->
+                    <div class="mb-8">
+                        <h4 class="font-game text-md text-slate-400 mb-4 border-b border-slate-700 pb-2">CHAPTER 2: MY MASTERPIECE (UAS)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- UAS 1 -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-blue-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uas1')">
+                                <i class="ph ph-lightbulb text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Concepts</h4>
+                                <p class="text-xs text-slate-400 mt-2">Sistem Informasi Adaptif untuk Krisis Iklim.</p>
+                            </div>
+                            <!-- UAS 2 -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-blue-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uas2')">
+                                <i class="ph ph-chat-teardrop-text text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Opinions</h4>
+                                <p class="text-xs text-slate-400 mt-2">Teknologi sebagai alat empati & adaptasi.</p>
+                            </div>
+                            <!-- UAS 3 -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-blue-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uas3')">
+                                <i class="ph ph-brain text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Knowledge</h4>
+                                <p class="text-xs text-slate-400 mt-2">Peta pengetahuan & Taksonomi Bloom.</p>
+                            </div>
+                            <!-- UAS 4 -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-blue-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uas4')">
+                                <i class="ph ph-sparkle text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Innovations</h4>
+                                <p class="text-xs text-slate-400 mt-2">VALORAIZE & Knowledge Marketplace.</p>
+                            </div>
+                            <!-- UAS 5 -->
+                            <div class="glassmorphism p-6 rounded-lg flex flex-col items-center text-center hover:border-blue-400 border border-transparent transition-colors duration-300 group cursor-pointer" onclick="showPage('uas5')">
+                                <i class="ph ph-certificate text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-game text-sm text-yellow-300">Final Review</h4>
+                                <p class="text-xs text-slate-400 mt-2">AI Assessment & Peer Review.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- ================== KONTEN UTS (EXISTING) ================== -->
 
                 <!-- Halaman 1: All About Me -->
                 <div id="uts1" class="page hidden">
@@ -342,8 +479,8 @@
                             <p>Berikut cara saya melakukan review: menggunakan <strong>ChatGPT</strong> untuk merefleksikan tiap tugas. Saya mengattach file prompt ChatGPT, disertai perintah:</p>
                             <p class="mt-2 p-3 bg-black bg-opacity-25 border-l-4 border-yellow-300 rounded"><em>"self-assess UTS-1 sampai UTS-5 berdasarkan isi situs yang saya sediakan (portofolio pribadi)."</em></p>
                             <p class="mt-2">ChatGPT melakukan self-assessment UTS-1 s.d. UTS-5 langsung dari laman yang saya berikan dan menilai memakai rubrik tugas UTS (skala 1–5 per kriteria).</p>
-                             <a href="https://drive.google.com/uc?export=download&id=1qFiDCnwIXMjG_1ax2HFmLCQPR3VjTDU0" class="inline-block mt-4 font-semibold text-rose-400 hover:text-rose-300 transition-colors duration-300">
-                                <i class="ph-download-simple align-middle mr-1"></i> Download CSV ringkasan (Google Drive)
+                             <a href="https://docs.google.com/spreadsheets/d/17yWcBRK8LCsshe6mAYZQY0xa3sagsiQ8/edit?usp=sharing&ouid=109905946038391206049&rtpof=true&sd=true" target="_blank" class="inline-block mt-4 font-semibold text-rose-400 hover:text-rose-300 transition-colors duration-300">
+                                <i class="ph-download-simple align-middle mr-1"></i> Lihat Hasil Review (Google Drive)
                              </a>
                         </div>
 
@@ -437,6 +574,199 @@
                      </div>
                 </div>
 
+
+                <!-- ================== KONTEN UAS (BARU) ================== -->
+
+                <!-- UAS 1: Concepts -->
+                <div id="uas1" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-blue-400 mb-2">UAS-1: My Concepts</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">"My Masterpiece: Sistem Informasi Adaptif"</h3>
+                    
+                    <div class="space-y-6 text-slate-300 leading-relaxed">
+                        <div class="p-4 border-l-4 border-blue-400 bg-black bg-opacity-20 rounded">
+                            <h4 class="font-bold text-white mb-2">Misi Utama</h4>
+                            <p>Mengangkat beban krisis perubahan iklim global yang mengancam 3,6 miliar manusia melalui sistem informasi adaptif.</p>
+                        </div>
+
+                        <p>Masalahnya bukan lagi apakah perubahan iklim terjadi, melainkan bagaimana manusia meresponsnya secara sistematis. Aku membutuhkan konsep—sebuah logika mesin abstrak yang mampu mengumpulkan kekuatan dan mengarahkannya untuk mengangkat beban yang berat.</p>
+                        
+                        <div class="glassmorphism p-6 rounded-lg text-center my-6">
+                            <h4 class="font-game text-yellow-300 mb-4">Rumus Konsep Inti</h4>
+                            <div class="text-xl font-mono bg-slate-800 p-4 rounded inline-block">
+                                [K] &rarr; [B]
+                            </div>
+                            <p class="mt-4 text-sm">Menghimpun <strong>Kekuatan [K]</strong> (Data, Teknologi, Kapasitas Manusia)<br>untuk mengangkat <strong>Beban [B]</strong> (Ketidakmampuan adaptasi risiko iklim).</p>
+                        </div>
+
+                        <p>Konsep ini melahirkan anak-anak ide praktis: sistem peringatan dini berbasis data lokal, peta kerentanan desa, hingga rekomendasi AI bagi petani. Pelajaran terpenting: konsep tidak harus lengkap untuk berguna. Justru karena ia menyaring esensi, konsep memberi ruang bagi kreativitas.</p>
+                        
+                        <p class="italic text-blue-300">"Konsep bukan sekadar alat berpikir—ia adalah kompas intelektual yang menjaga arah tetap konsisten di tengah ketidakpastian."</p>
+                    </div>
+                </div>
+
+                <!-- UAS 2: Opinions -->
+                <div id="uas2" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-blue-400 mb-2">UAS-2: My Opinions</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Opini tentang "My Masterpiece"</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glassmorphism p-6 rounded-lg">
+                            <h4 class="font-game text-yellow-300 mb-4"><i class="ph-eye"></i> Sudut Pandang Pribadi</h4>
+                            <p class="text-slate-300">Teknologi adalah alat empati. Sistem informasi harus membantu masyarakat memahami risiko dan memberi daya untuk bersiap, bukan sekadar pelaporan statistik.</p>
+                        </div>
+                        <div class="glassmorphism p-6 rounded-lg">
+                            <h4 class="font-game text-yellow-300 mb-4"><i class="ph-users-three"></i> Sudut Pandang Umum</h4>
+                            <p class="text-slate-300">Sistem adaptasi iklim berbasis data harus transparan, dapat diaudit, dan berpihak pada kelompok paling rentan.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 space-y-4 text-slate-300">
+                        <h4 class="font-bold text-white text-lg">Analogi: Masakan Rumahan</h4>
+                        <p>Opiniku adalah rebusan informasi, nilai, perasaan, dan pengalaman. Seperti masakan rumahan:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><strong>Bahan:</strong> Data iklim, nilai kemanusiaan, pengalaman sosial.</li>
+                            <li><strong>Sifat:</strong> Membumi, bertanggung jawab, dan siap diperbaiki jika ada "bahan" (fakta) baru.</li>
+                        </ul>
+                        <p class="p-4 bg-blue-900/30 rounded mt-4">"Sikap yang kupilih adalah berpendapat dengan tanggung jawab: cukup kuat untuk memberi arah, cukup lentur untuk berubah."</p>
+                    </div>
+                </div>
+
+                <!-- UAS 3: Knowledge -->
+                <div id="uas3" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-blue-400 mb-2">UAS-3: My Knowledge</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Rekayasa Pembelajaran Sistem Adaptif</h3>
+
+                    <div class="space-y-6">
+                        <!-- Types of Knowledge -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div class="glassmorphism p-4 rounded-lg border-t-2 border-green-400">
+                                <h4 class="font-bold text-white">Pengetahuan Alam</h4>
+                                <p class="text-xs text-slate-400 mt-2">Data iklim, curah hujan, suhu, fisika lingkungan.</p>
+                            </div>
+                            <div class="glassmorphism p-4 rounded-lg border-t-2 border-yellow-400">
+                                <h4 class="font-bold text-white">Pengetahuan Sosial</h4>
+                                <p class="text-xs text-slate-400 mt-2">Pola pemukiman, budaya lokal, relasi kuasa.</p>
+                            </div>
+                            <div class="glassmorphism p-4 rounded-lg border-t-2 border-blue-400">
+                                <h4 class="font-bold text-white">Pengetahuan Aplikatif</h4>
+                                <p class="text-xs text-slate-400 mt-2">Sistem peringatan dini, dashboard, decision support.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bloom's Ladder -->
+                        <div class="glassmorphism p-6 rounded-lg">
+                            <h4 class="font-game text-yellow-300 mb-4">Tangga Taksonomi Bloom (Level 1-7)</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded">Lv 1-2</span>
+                                    <span class="text-slate-300">Mengingat definisi & Memahami klasifikasi wilayah rawan.</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">Lv 3-4</span>
+                                    <span class="text-slate-300">Menerapkan data prediksi & Menganalisis penyebab kerentanan.</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-blue-400 text-white text-xs px-2 py-1 rounded">Lv 5-6</span>
+                                    <span class="text-slate-300">Mensintesis solusi sistem & Mengevaluasi keadilan sosial.</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-rose-500 text-white text-xs px-2 py-1 rounded font-bold">Lv 7</span>
+                                    <span class="text-white">Creating: Merancang entitas sistem informasi adaptif baru.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products -->
+                        <div>
+                            <h4 class="font-game text-white mb-2">Produk Pengetahuan</h4>
+                            <ul class="list-disc list-inside text-slate-300 ml-4">
+                                <li>Peta Pengetahuan Primitif (Konsep dasar iklim).</li>
+                                <li>Peta Pemecahan Masalah (Problem-Solving Map).</li>
+                                <li>Jurnal Reflektif Etika Teknologi.</li>
+                                <li>Prototipe Sistem Informasi Adaptif.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UAS 4: Innovations -->
+                <div id="uas4" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-blue-400 mb-2">UAS-4: My Innovations</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Inovasi Nilai & Knowledge Marketplace</h3>
+
+                    <div class="glassmorphism p-6 rounded-lg mb-6">
+                        <h4 class="font-game text-yellow-300 mb-4"><i class="ph-storefront"></i> Knowledge Marketplace</h4>
+                        <p class="text-slate-300 mb-4">Ekosistem di mana pengetahuan diproduksi, dipertukarkan, dan digunakan seperti pasar yang hidup.</p>
+                        
+                        <div class="flex flex-col md:flex-row gap-4 items-center justify-center mt-6">
+                            <div class="text-center w-full bg-slate-800 p-4 rounded-lg">
+                                <h5 class="text-rose-400 font-bold">Need Creators</h5>
+                                <p class="text-xs text-slate-400">Dosen/Fasilitator</p>
+                                <p class="text-sm mt-2">"Bagaimana memetakan banjir di desa X?"</p>
+                            </div>
+                            <div class="text-2xl text-slate-500"><i class="ph-arrows-left-right"></i></div>
+                            <div class="text-center w-full bg-slate-800 p-4 rounded-lg">
+                                <h5 class="text-green-400 font-bold">Value Creators</h5>
+                                <p class="text-xs text-slate-400">Mahasiswa/Komunitas</p>
+                                <p class="text-sm mt-2">Menghasilkan Peta, Aplikasi, Solusi Nyata.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-slate-300">
+                        <h4 class="font-bold text-white">Filosofi VALORAIZE Learning</h4>
+                        <p>Pembelajaran tidak berhenti pada penguasaan konsep, tetapi harus menghasilkan nilai luhur dan kontribusi nyata.</p>
+                        <p>Artefak mahasiswa tidak hilang setelah dinilai, tetapi diunggah sebagai aset bersama (Open Resource) untuk angkatan berikutnya atau pemerintah daerah.</p>
+                        <div class="bg-blue-900/30 p-4 rounded border-l-4 border-yellow-300">
+                            <strong>Dampak:</strong> Mengubah mahasiswa dari penerima materi pasif menjadi pencipta nilai aktif.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UAS 5: Final Review (Updated) -->
+                <div id="uas5" class="page hidden">
+                    <h2 class="font-game text-2xl md:text-3xl text-blue-400 mb-2">UAS-5: Final Review</h2>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Assessment Report</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <!-- AI Assessment -->
+                        <div class="glassmorphism p-6 rounded-lg border border-blue-500/30">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="ph-robot text-3xl text-blue-400"></i>
+                                <h4 class="font-game text-white">AI Assessment</h4>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-3">Menggunakan AI untuk membaca keseluruhan rangkaian UAS (Konsep s.d Inovasi).</p>
+                            <ul class="text-sm text-slate-400 list-disc list-inside">
+                                <li>Mengecek konsistensi argumen.</li>
+                                <li>Kejelasan kerangka berpikir.</li>
+                                <li>Objektivitas & Struktur Logika.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Peer Assessment -->
+                        <div class="glassmorphism p-6 rounded-lg border border-rose-500/30">
+                            <div class="flex items-center gap-3 mb-4">
+                                <i class="ph-users text-3xl text-rose-400"></i>
+                                <h4 class="font-game text-white">Peer Assessment</h4>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-3">Penilaian manual oleh rekan mahasiswa (sudut pandang manusia).</p>
+                            <ul class="text-sm text-slate-400 list-disc list-inside">
+                                <li>Menangkap makna & rasa.</li>
+                                <li>Keterbacaan & Relevansi.</li>
+                                <li>Kekuatan narasi reflektif.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-6 bg-slate-800 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">Kesimpulan Evaluasi</h4>
+                        <p class="text-slate-300 italic mb-4">"AI unggul dalam konsistensi dan struktur, sementara manusia unggul dalam menangkap makna dan konteks. Kombinasi keduanya membuat evaluasi lebih profesional."</p>
+                        <a href="https://docs.google.com/spreadsheets/d/1q7eJWiLImfnG8C0JrAGnJldXx4qijI2t/edit?usp=sharing&ouid=109905946038391206049&rtpof=true&sd=true" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-game py-2 px-4 rounded text-xs transition-colors">
+                            <i class="ph-link"></i> LIHAT HASIL LENGKAP
+                        </a>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
@@ -466,41 +796,46 @@
                 mainContainer.classList.remove('hidden');
                 setTimeout(() => {
                     mainContainer.style.opacity = '1';
-                }, 50); // Small delay to ensure transition triggers
-            }, 1000); // Match transition duration
+                }, 50); 
+            }, 1000); 
         });
 
         // Fungsi untuk menampilkan halaman
         function showPage(pageId) {
-            // Hentikan audio jika pindah halaman
-            if (pageId !== 'uts2' && audioPlayer && !audioPlayer.paused) {
-                audioPlayer.pause();
-                pauseIcon.classList.add('hidden');
-                playIcon.classList.remove('hidden');
-            }
-
-            // Sembunyikan semua halaman
+            // Hide all pages
             pages.forEach(page => {
                 page.classList.add('hidden');
                 page.classList.remove('fade-in');
             });
 
-            // Tampilkan halaman yang dipilih
+            // Show active page
             const activePage = document.getElementById(pageId);
             if (activePage) {
                 activePage.classList.remove('hidden');
-                // Trigger reflow to restart animation
-                void activePage.offsetWidth; 
+                void activePage.offsetWidth;
                 activePage.classList.add('fade-in');
             }
-            
-            // Atur status aktif pada navigasi
+
+            // Reset nav states
             navItems.forEach(item => {
-                item.classList.remove('active');
+                item.classList.remove('active', 'active-home', 'active-ch1', 'active-ch2');
             });
+
+            // Find active nav
             const activeNavItem = document.querySelector(`.nav-item[onclick="showPage('${pageId}')"]`);
-            if(activeNavItem) {
-                activeNavItem.classList.add('active');
+            if (!activeNavItem) return;
+
+            // HOME
+            if (pageId === 'dashboard') {
+                activeNavItem.classList.add('active-home');
+            }
+            // CHAPTER 1 (UTS)
+            else if (pageId.startsWith('uts')) {
+                activeNavItem.classList.add('active-ch1');
+            }
+            // CHAPTER 2 (UAS)
+            else if (pageId.startsWith('uas')) {
+                activeNavItem.classList.add('active-ch2');
             }
         }
 
